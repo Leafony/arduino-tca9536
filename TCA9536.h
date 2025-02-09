@@ -1,7 +1,8 @@
+#ifndef __TCA9536_H__
+#define __TCA9536_H__
 #include <Wire.h>
 
-typedef enum
-{
+typedef enum {
   TCA9536_ADDRESS = 0x41,
   TCA9536A_ADDRESS = 0x40,
   TCA9536B_ADDRESS = 0x43,
@@ -9,8 +10,7 @@ typedef enum
   TCA9536_ADDRESS_INVALID = 0xFF
 } TCA9536_Address_t;
 
-typedef enum
-{
+typedef enum {
   TCA9536_REGISTER_INPUT_PORT = 0x00,
   TCA9536_REGISTER_OUTPUT_PORT = 0x01,
   TCA9536_REGISTER_POLARITY_INVERSION = 0x02,
@@ -19,8 +19,7 @@ typedef enum
   TCA9536_REGISTER_INVALID
 } TCA9536_REGISTER_t;
 
-typedef enum
-{
+typedef enum {
   TCA9536_ERROR_READ = -4,
   TCA9536_ERROR_WRITE = -3,
   TCA9536_ERROR_INVALID_ADDRESS = -2,
@@ -29,8 +28,7 @@ typedef enum
 } TCA9536_error_t;
 const TCA9536_error_t TCA9536_SUCCESS = TCA9536_ERROR_SUCCESS;
 
-typedef enum
-{
+typedef enum {
   TCA9536_RETAIN,
   TCA9536_INVERT,
   TCA9536_INVERT_END
@@ -38,8 +36,7 @@ typedef enum
 
 #define TCA9536_MAX_GPIO 3
 
-class TCA9536
-{
+class TCA9536 {
 public:
   TCA9536(TCA9536_Address_t address);
   bool begin(TwoWire &wirePort = Wire);
@@ -62,8 +59,10 @@ public:
   uint8_t digitalRead(uint8_t pin);
   uint8_t read(uint8_t pin);
 
-  // invert and revert can be used to invert (or not) the I/O logic during a read
-  TCA9536_error_t invert(uint8_t pin, TCA9536_invert_t inversion = TCA9536_INVERT);
+  // invert and revert can be used to invert (or not) the I/O logic during a
+  // read
+  TCA9536_error_t invert(uint8_t pin,
+                         TCA9536_invert_t inversion = TCA9536_INVERT);
   TCA9536_error_t revert(uint8_t pin);
 
   TCA9536_error_t disablePullUp(bool flag);
@@ -74,8 +73,14 @@ private:
   TCA9536_Address_t _deviceAddress;
 
   // I2C Read/Write
-  TCA9536_error_t readI2CBuffer(uint8_t *dest, TCA9536_REGISTER_t startRegister, uint16_t len);
-  TCA9536_error_t writeI2CBuffer(uint8_t *src, TCA9536_REGISTER_t startRegister, uint16_t len);
-  TCA9536_error_t readI2CRegister(uint8_t *dest, TCA9536_REGISTER_t registerAddress);
-  TCA9536_error_t writeI2CRegister(uint8_t data, TCA9536_REGISTER_t registerAddress);
+  TCA9536_error_t readI2CBuffer(uint8_t *dest, TCA9536_REGISTER_t startRegister,
+                                uint16_t len);
+  TCA9536_error_t writeI2CBuffer(uint8_t *src, TCA9536_REGISTER_t startRegister,
+                                 uint16_t len);
+  TCA9536_error_t readI2CRegister(uint8_t *dest,
+                                  TCA9536_REGISTER_t registerAddress);
+  TCA9536_error_t writeI2CRegister(uint8_t data,
+                                   TCA9536_REGISTER_t registerAddress);
 };
+
+#endif // __TCA9536_H__
