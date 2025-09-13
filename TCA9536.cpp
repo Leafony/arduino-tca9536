@@ -16,7 +16,7 @@ bool TCA9536::begin(TwoWire &wirePort)
 }
 
 // Returns true if a device ack's at given address
-boolean TCA9536::isConnected(void)
+bool TCA9536::isConnected(void)
 {
   _i2cPort->beginTransmission((uint8_t)_deviceAddress);
   return (_i2cPort->endTransmission() == 0);
