@@ -43,7 +43,7 @@ public:
   bool isConnected();
 
   // setDebugStream to enable library debug statements
-  void setDebugStream(Stream &debugPort = Serial);
+  void setDebugStream(Stream &debugPort);
 
   // pinMode can set a pin (0-3) to INPUT or OUTPUT
   TCA9536_error_t pinMode(uint8_t pin, uint8_t mode);
